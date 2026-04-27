@@ -29,22 +29,33 @@ Example:
       Explanation: Reconstructed, the chain is 3 — 1 — 4 — 2. Endpoints are
       3 and 2 (both degree 1).
 """
-
+from collections import defaultdict
 def chain_traversal(n: int, edges: list) -> list:
-    d = {i: 2 for i in range(1, n + 1)} 
-    adjList = []
+    degree = [0] * (n+1) # so that it stays 1 indexed
+    adjList = defaultdict(list)
     for src, adj in edges:
-        adjList[src] = adj
-        d[src] -= 1
-        d[adj] -= 1
-        if d[src] == 0:
-            del d[src]
-        if d[adj] == 0:
-            del d[adj]
-    start, end = d.keys()
+        degree[src] += 1
+        degree[adj] += 1
+        adjList[src].append(adj)
+        adjList[adj].append(src)
+    
+    start = -1
+    for i, val in enumerate(degree):
+        if val == 1:
+            start = i
+            break
+    
+    prev = None
+    curr = start
+    ret = [start]
 
-    ret = []
-    for i in range(n):
-        ret.append(start)
-        start = adj[start]
+    for i in range(n - 1): # n-1 iterations 
+        visitNext = adjList[curr][0] if adjList[curr][0] != prev else adjList[curr][1] 
+        # we go in one way out the other 
+        ret.append(visitNext)
+        
+        prev = curr
+        curr = visitNext
+    # now we have start 
     return ret
+
