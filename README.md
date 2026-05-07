@@ -4,7 +4,7 @@ Steps to get an offer.
 
 ---
 
-## Step 1: Online Assessment (GCA) <- on this step right now
+## Step 1: Online Assessment (GCA) <- 600/600
 The General Coding Assessment is a timed online coding test (60–90 min, 2–4 problems) covering data structures and algorithms. Pass it to move forward.
 
 ## Step 2: Technical Interview(s)
